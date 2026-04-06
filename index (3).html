@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filip · Sesongplan 2026</title>
+<style>
+:root{
+  --bg:#f8f7f4;--bg2:#ffffff;--bg3:#f1f0eb;
+  --text:#1a1a18;--text2:#6b6a65;--text3:#9c9a93;
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.2);
+  --purple:#7F77DD;--purple-bg:#EEEDFE;--purple-text:#3C3489;
+  --green-bg:#EAF3DE;--green-text:#1D6B42;
+  --blue-bg:#E6F1FB;--blue-text:#0C447C;
+  --red-bg:#FEE2E2;--red-text:#991B1B;
+  --amber-bg:#FAEEDA;--amber-text:#633806;
+  --gray-bg:#F1EFE8;--gray-text:#5F5E5A;
+  --shadow:0 1px 4px rgba(0,0,0,0.08);
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#1a1917;--bg2:#242320;--bg3:#2c2b28;
+    --text:#e8e6df;--text2:#9c9a93;--text3:#6b6a65;
+    --border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.2);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:var(--text);background:var(--bg);min-height:100vh}
+.app{max-width:1100px;margin:0 auto;padding:14px 14px 60px}
+
+.nav{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.nav-info{flex:1;min-width:180px}
+.nav-title{font-size:18px;font-weight:700;letter-spacing:-.3px}
+.nav-date{font-size:12px;color:var(--text2);margin-top:3px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{font-size:12px;padding:6px 14px;border:0.5px solid var(--border2);border-radius:20px;cursor:pointer;background:var(--bg2);color:var(--text2);transition:all .15s;font-family:inherit}
+.tab.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tab:hover:not(.active){background:var(--bg3)}
+
+.view{display:none}.view.active{display:block}
+
+.today-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.today-grid{grid-template-columns:1fr}}
+.card{background:var(--bg2);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.card-head{padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;border-bottom:0.5px solid var(--border)}
+.ch-t{background:var(--purple-bg);color:var(--purple-text)}
+.ch-k{background:var(--green-bg);color:var(--green-text)}
+.ch-r{background:var(--gray-bg);color:var(--gray-text)}
+.card-body{padding:14px}
+
+.phase-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;margin-bottom:10px}
+.pt-rehab{background:#FAECE7;color:#712B13}
+.pt-bygg{background:var(--blue-bg);color:var(--blue-text)}
+.pt-fart{background:var(--purple-bg);color:var(--purple-text)}
+.pt-peak{background:var(--amber-bg);color:var(--amber-text)}
+.pt-comp{background:var(--green-bg);color:var(--green-text)}
+.pt-reload{background:var(--gray-bg);color:var(--gray-text)}
+
+.tb{margin-bottom:9px;padding:9px 11px;border-radius:7px;font-size:12px;line-height:1.7}
+.tb-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;color:var(--text2)}
+.tb-fart{background:#F5F3FF;border-left:3px solid #7F77DD}
+.tb-blokk{background:#ECFDF5;border-left:3px solid #10B981}
+.tb-styrke{background:#EFF6FF;border-left:3px solid #3B82F6}
+.tb-mob{background:#F5F0FF;border-left:3px solid #8B5CF6}
+.tb-rytme{background:#F0FDF4;border-left:3px solid #22C55E}
+.tb-kvile{background:var(--bg3);border-left:3px solid #9CA3AF}
+.tb-stevne{background:var(--red-bg);border-left:3px solid #EF4444}
+@media(prefers-color-scheme:dark){
+  .tb-fart{background:#1e1a3a}.tb-blokk{background:#0a2a1e}
+  .tb-styrke{background:#0f1e30}.tb-mob{background:#1a0f30}
+  .tb-rytme{background:#0a2010}.tb-stevne{background:#2a0f0f}
+}
+
+.mb{margin-bottom:7px;font-size:12px;line-height:1.65}
+.mb-t{font-size:10px;font-weight:700;color:var(--text2);display:block;margin-bottom:1px}
+.mb-n{font-weight:700;display:block}
+.mb-d{color:var(--text2);font-size:11px;line-height:1.55}
+.mb-s{font-size:10px;color:#6D28D9;background:#EDE9FE;border-radius:3px;padding:2px 7px;display:inline-block;margin-top:3px}
+@media(prefers-color-scheme:dark){.mb-s{background:#2d1f50;color:#c4b5fd}}
+.mdiv{border-top:0.5px solid var(--border);margin:8px 0}
+
+/* MACRO BAR */
+.macro-bar{display:flex;gap:0;border-top:0.5px solid var(--border);margin-top:10px}
+.macro-pill{flex:1;text-align:center;padding:8px 4px;font-size:11px;line-height:1.3}
+.macro-pill:not(:last-child){border-right:0.5px solid var(--border)}
+.macro-val{font-size:15px;font-weight:700;display:block}
+.macro-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--text2);font-weight:600}
+.mp-p .macro-val{color:#C2410C}
+.mp-k .macro-val{color:#1D4ED8}
+.mp-f .macro-val{color:#15803D}
+.mp-e .macro-val{color:var(--text2)}
+
+.wk-nav{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.wk-btn{font-size:12px;padding:6px 14px;border:0.5px solid var(--border2);border-radius:7px;cursor:pointer;background:var(--bg2);color:var(--text);font-family:inherit}
+.wk-btn:hover{background:var(--bg3)}
+.wk-lbl{font-size:13px;font-weight:700;flex:1;text-align:center}
+
+.wk-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+@media(max-width:900px){.wk-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:480px){.wk-grid{grid-template-columns:repeat(2,1fr)}}
+.dc{background:var(--bg2);border:0.5px solid var(--border);border-radius:9px;overflow:hidden;cursor:pointer;transition:box-shadow .15s}
+.dc:hover{box-shadow:0 3px 12px rgba(0,0,0,.12)}
+.dc.hl{border:2px solid var(--purple)}
+.dc-h{padding:6px 9px;font-size:10px;font-weight:700;border-bottom:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;letter-spacing:.04em}
+.dc-date{font-size:10px;color:var(--text2);font-weight:400}
+.dc-b{padding:7px 9px;font-size:11px;line-height:1.55;color:var(--text2)}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:4px}
+.dot-t{background:var(--purple)}.dot-s{background:#3B82F6}.dot-q{background:#9CA3AF}.dot-c{background:#EF4444}
+
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:center;justify-content:center;padding:16px}
+.overlay.open{display:flex}
+.modal{background:var(--bg2);border-radius:16px;max-width:580px;width:100%;max-height:88vh;overflow-y:auto;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.modal-title{font-size:16px;font-weight:700}
+.modal-x{font-size:20px;cursor:pointer;color:var(--text2);background:none;border:none;line-height:1;padding:2px 6px;border-radius:5px;font-family:inherit}
+.modal-x:hover{background:var(--bg3)}
+.modal-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin:16px 0 7px}
+
+.kost-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:11px}
+.kost-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:11px;overflow:hidden;box-shadow:var(--shadow)}
+.kost-h{padding:9px 13px;font-size:12px;font-weight:700;border-bottom:0.5px solid var(--border)}
+.kd-1{background:var(--blue-bg);color:var(--blue-text)}
+.kd-2{background:var(--purple-bg);color:var(--purple-text)}
+.kd-3{background:#D4EAFF;color:#0A4A80}
+.kd-4{background:var(--purple-bg);color:var(--purple-text)}
+.kd-5{background:#F0EEF8;color:#4A3580}
+.kd-6{background:var(--green-bg);color:var(--green-text)}
+.kd-0{background:var(--gray-bg);color:var(--gray-text)}
+.kost-b{padding:11px 13px}
+
+.suppl-wrap{max-width:620px}
+.suppl-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:12px;box-shadow:var(--shadow)}
+.suppl-head{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:#EDE9FE;color:#4C1D95;border-bottom:0.5px solid var(--border)}
+.suppl-row{display:flex;gap:10px;padding:8px 14px;border-bottom:0.5px solid var(--border);font-size:12px;line-height:1.6}
+.suppl-row:last-child{border-bottom:none}
+.suppl-time{font-weight:700;color:#6D28D9;min-width:140px;flex-shrink:0}
+.suppl-note{background:var(--bg3);border-radius:8px;padding:10px 14px;font-size:12px;line-height:1.75;color:var(--text2)}
+
+.empty{text-align:center;padding:24px;color:var(--text2);font-size:12px}
+b{font-weight:700}s{opacity:.45;text-decoration:line-through}i{font-style:italic;color:var(--text2)}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="nav">
+  <div class="nav-info">
+    <div class="nav-title">Filip · Sesongplan 2026</div>
+    <div class="nav-date" id="navDate"></div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showView('today',this)">I dag</button>
+    <button class="tab" onclick="showView('plan',this)">Sesongplan</button>
+    <button class="tab" onclick="showView('kost',this)">Kostplan</button>
+    <button class="tab" onclick="showView('suppl',this)">Tilskot</button>
+  </div>
+</div>
+
+<div class="view active" id="view-today">
+  <div class="today-grid">
+    <div class="card">
+      <div class="card-head ch-t" id="todayHead">Dagens trening</div>
+      <div class="card-body" id="todayTrain"></div>
+    </div>
+    <div class="card">
+      <div class="card-head ch-k">Dagens kostplan</div>
+      <div class="card-body" id="todayKost"></div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="view-plan">
+  <div class="wk-nav">
+    <button class="wk-btn" onclick="prevWk()">← Forrige</button>
+    <div class="wk-lbl" id="wkLbl"></div>
+    <button class="wk-btn" onclick="nextWk()">Neste →</button>
+  </div>
+  <div class="wk-grid" id="wkGrid"></div>
+</div>
+
+<div class="view" id="view-kost">
+  <div class="kost-grid" id="kostGrid"></div>
+</div>
+
+<div class="view" id="view-suppl">
+  <div class="suppl-wrap">
+    <div class="suppl-card">
+      <div class="suppl-head">Kosttilskot — dagleg timing</div>
+      <div class="suppl-row"><span class="suppl-time">Morgon til frukost</span><span>Kalsium · Omega-3 · Folsyre · D-vitamin. Aldri saman med jern.</span></div>
+      <div class="suppl-row"><span class="suppl-time">30–60 min før trening</span><span>C-vitamin (ekstra dose) — stimulerer kollagensyntese under mekanisk belastning.</span></div>
+      <div class="suppl-row"><span class="suppl-time">Kveld — åleine</span><span>Magnesium + Jern + lita dose C-vitamin. Separat frå kalsium = betre absorpsjon av begge.</span></div>
+    </div>
+    <div class="suppl-note">
+      <b>Aldri saman:</b> Kalsium + Jern · Kalsium + Magnesium · Jern + Mjølkeprodukt<br>
+      <b>D-vitamin:</b> Produserer naturleg i Spania-sol — ta det opp att heime frå leir<br>
+      <b>Jern:</b> Ta alltid saman med C-vitamin — doblar absorpsjonen<br>
+      <b>Magnesium:</b> Kveld åleine = betre absorpsjon + hjelper søvn og muskelavspenning<br>
+      <b>Kalsium krasjar med:</b> både jern OG magnesium — hald det til frukost<br>
+      <b>Omega-3:</b> Absorberast best til feitthaldige måltid
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="overlayClick(event)">
+  <div class="modal">
+    <div class="modal-hd">
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-x" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const DN=['Søndag','Måndag','Tysdag','Onsdag','Torsdag','Fredag','Laurdag'];
+const DNS=['Søn','Man','Tys','Ons','Tor','Fre','Lør'];
+const MN=['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+const MNS=['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'];
+
+function toDS(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function parseDS(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function getMonday(d){const day=d.getDay();const diff=day===0?-6:1-day;return new Date(d.getFullYear(),d.getMonth(),d.getDate()+diff)}
+function fmtLong(d){return DN[d.getDay()]+' '+d.getDate()+'. '+MN[d.getMonth()]+' '+d.getFullYear()}
+function fmtShort(d){return d.getDate()+'. '+MNS[d.getMonth()]}
+
+const PHASES=[
+  {s:'2026-03-30',e:'2026-04-07',n:'Leir Nerja',t:'pt-rehab'},
+  {s:'2026-04-08',e:'2026-04-12',n:'Landing',t:'pt-bygg'},
+  {s:'2026-04-13',e:'2026-04-26',n:'Gjenoppbygging',t:'pt-bygg'},
+  {s:'2026-04-27',e:'2026-05-04',n:'Fartsutvikling',t:'pt-fart'},
+  {s:'2026-05-05',e:'2026-05-17',n:'Fartsutvikling + kamel',t:'pt-fart'},
+  {s:'2026-05-18',e:'2026-05-28',n:'Peaking TMG',t:'pt-peak'},
+  {s:'2026-05-29',e:'2026-06-22',n:'Stevneperiode',t:'pt-comp'},
+  {s:'2026-06-23',e:'2026-07-01',n:'Reload',t:'pt-reload'},
+  {s:'2026-07-02',e:'2026-07-13',n:'Finland',t:'pt-comp'},
+  {s:'2026-07-14',e:'2026-07-25',n:'NM-peaking',t:'pt-peak'},
+  {s:'2026-07-26',e:'2026-08-09',n:'Reload',t:'pt-reload'},
+  {s:'2026-08-10',e:'2026-08-30',n:'Jr. NM-peaking',t:'pt-peak'},
+];
+function getPhase(ds){for(const p of PHASES)if(ds>=p.s&&ds<=p.e)return p;return null}
+
+const SP={
+  '2026-05-28':{l:'🏁 TMG — 100m',c:'tb-stevne',t:'Trond Mohn Games, Bergen. Sesongopnar. Løp teknisk og rytmisk — ikkje jag tida.'},
+  '2026-06-05':{l:'🏁 Framo-lekene',c:'tb-stevne',t:'Framo-lekene, Bergen (5.–7. juni). 400m + 200m. Prioriter 400m.'},
+  '2026-06-20':{l:'🏁 Lillehammerlekene',c:'tb-stevne',t:'Lillehammerlekene 20.–22. juni. 100m + 200m. Første dobbel i sesongen.'},
+  '2026-06-24':{l:'🏁 Boysen Memorial — 200m',c:'tb-stevne',t:'Boysen Memorial, Bislett. 200m. To dagar etter Lillehammer — spar energi.'},
+  '2026-07-08':{l:'🏁 Joensuu — 200m',c:'tb-stevne',t:'Joensuu, Finland. 200m.'},
+  '2026-07-12':{l:'🏁 Tampere — 100m',c:'tb-stevne',t:'Tampere, Finland. 100m. Fire dagar etter Joensuu.'},
+  '2026-07-18':{l:'🏁 Next Call Bislett',c:'tb-stevne',t:'Next Call NM Prep, Bislett. 100m + 200m i racepace.'},
+  '2026-07-23':{l:'🏆 NM Trondheim',c:'tb-stevne',t:'NM Trondheim 23.–25. juli. 100m + 200m. HOVUDMÅL #1.'},
+  '2026-08-22':{l:'NM Stafetter + Mjøssprinten',c:'tb-stevne',t:'NM Stafetter 22/8, Moelven (4×100m). Mjøssprinten 23/8 — avgjer fredag 21/8.'},
+  '2026-08-28':{l:'🏆 Jr. NM Oslo',c:'tb-stevne',t:'Jr. NM Oslo 28.–30. august. 100m + 200m. HOVUDMÅL #2.'},
+};
+
+function getSP(ds){
+  if(ds<'2026-04-20')return null;
+  if(ds<'2026-04-27')return{r:'3×5',n:'Intro — lett'};
+  if(ds<'2026-05-05')return{r:'4×5',n:'Bygg — auke vekt'};
+  if(ds<'2026-05-18')return{r:'4×6',n:'Topp — tyngste periode'};
+  if(ds<'2026-06-08')return{r:'3×4–5',n:'Ned volum'};
+  return{r:'2×3–4',n:'Vedlikehald — berre eksplosivt'};
+}
+
+function getDayData(dow,ds){
+  const kamel=ds>='2026-05-05';
+  const tau=ds<'2026-05-18';
+  const sp=getSP(ds);
+  const noTrain=ds<'2026-04-13';
+  const map={
+    0:{lbl:'Søndag',type:'kvile',dot:'dot-q',short:'Kvile',
+      blocks:[{c:'tb-kvile',l:'Kvile',t:'Fullstendig kvile. Restitusjon og mental avkopling.'}]},
+    1:{lbl:'Måndag',type:'styrke',dot:'dot-s',short:'Core + overkropp (18:30–20:00)',
+      blocks:[
+        {c:'tb-styrke',l:'Core + overkropp (18:30–20:00)',t:'<b>Overkropp:</b> Dips 3×6–8 (legg vekt gradvis) · Benkpress/skråbenk 3×5 · Skulderpress 2×8<br><b>Core A (odde veker — rotasjon):</b> Pallof press 3×8 kvar side · Medisinball rotasjon 3×8 · Russian twist 3×10<br><b>Core B (partalsveker — stabilitet):</b> Dead bug 3×8 · Single-arm farmers carry 2×20m · Hollow body hold 3×20 sek'},
+        {c:'tb-mob',l:'Mobilitet etter (15 min)',t:'90/90 hofterotasjon 5 min · Quadruped hip CARs 5 reps · Couch stretch 2 min · Pigeon pose 90 sek · Glute-bridge med 3 sek pause 2×10'}
+      ]},
+    2:{lbl:'Tysdag',type:'trening',dot:'dot-t',short:'Fly + kamel (18:30–20:30)',
+      blocks:[{c:'tb-fart',l:'Fartøkt (18:30–20:30)',t:
+        (noTrain?'<i>Leir — leirprogram</i>':'<b>Flying 30m:</b> 3–4 × flying 30m frå 30m innløp, nær maks. Pause 8–9 min.')+
+        (kamel?'<br><br><b>Kamel (maks 2 reps alltid):</b> 15m akselerasjon + 20m flyt + 20m reaktivering. Pause 10 min mellom repsane.':
+        (noTrain?'':'<br><br><i>Kamel kjem inn 5. mai når flytidar flatar ut.</i>'))
+      }]},
+    3:{lbl:'Onsdag',type:'styrke',dot:'dot-s',short:'Styrke (18:30–20:00)',
+      blocks:[{c:'tb-styrke',l:'Styrke (18:30–20:00)',t:
+        '<b>Smith SL-squat:</b> '+(sp?sp.r:'3×5')+' eksplosivt opp'+(sp?' — <i>'+sp.n+'</i>':'')+
+        '<br><b>Heelboks hip ext:</b> Hæl på boks over hoftenivå, vekt på hofte, press roleg ned. 3×6–8'+
+        '<br><b>Isometrisk einbeins calf raise i stang:</b> Hold 5–8 sek. 3×5 kvar side'}]},
+    4:{lbl:'Torsdag',type:'trening',dot:'dot-t',short:'Blokk + spenst (18:30–20:30)',
+      blocks:[
+        {c:'tb-blokk',l:'Blokkløp (18:30–20:30)',t:
+          '<span style="background:#FEF3C7;color:#92400E;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700">10m</span> 2 × 10m — reaksjon og første drivfase. Fokus: vinkel og eksplosjon ut av blokka.<br>'+
+          '<span style="background:#DBEAFE;color:#1D4ED8;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700">20m</span> 2 × 20m — akselerasjon inn i overgang. Driv og kroppen reiser seg.<br>'+
+          '<span style="background:#EDE9FE;color:#5B21B6;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700">30m</span> 2 × 30m — full akselerasjonsfase med naturleg overgang til løpsposisjon.'},
+        {c:tau?'tb-blokk':'tb-kvile',l:'Hoppetau-løping',t:tau?'2–3 × 20m. 1 rotasjon = 1 løpssteg. Fokus: høg hofte, kneløft, timing i isett.':'<s>Hoppetau ute frå 18. mai</s> — kuttar for å ta ned belastning.'},
+        {c:'tb-blokk',l:'Hekkedrills',t:'A-skip · B-skip · Sidesteg over låge hekkar'},
+        {c:'tb-blokk',l:'Spenst',t:'Lave hink flatt 3×6 · Boks-eksplosivhopp til stavmadrass 3×5–6 (kontrollert landing)'}
+      ]},
+    5:{lbl:'Fredag',type:'mob',dot:'dot-q',short:'Full mobilitet (30–40 min)',
+      blocks:[{c:'tb-mob',l:'Full mobilitet (30–40 min)',t:
+        '<b>Hofte:</b> 90/90 hofterotasjon 8–10 min · Quadruped hip CARs 8 reps · Pigeon pose 2 min · Hip flexor release 90 sek<br><br>'+
+        '<b>Hamstring:</b> Hamstring PNF kontrakt-relax 3 reps kvar side · Piriformis/figure-4 2 min kvar side<br><br>'+
+        '<b>Legg og ankel:</b> Gastrocnemius strekk 90 sek · Soleus strekk 90 sek · Ankelrotasjonar 10 kvar retning<br><br>'+
+        '<b>Aktivering:</b> Glute-bridge med 3 sek pause 3×10 · Thorax-rotasjon sitjande 10 kvar side'}]},
+    6:{lbl:'Laurdag',type:'trening',dot:'dot-t',short:'Rytmeøkt (11:00–13:00)',
+      blocks:[{c:'tb-rytme',l:'Rytmeøkt (11:00–13:00)',t:
+        '<b>Vekslar kvar veke:</b><br>'+
+        '<b>Pyramide ned:</b> 250m → 200m → 150m → 100m i 85–94 %. Pause 8–10 min. Start roleg på 250m — farten kjem naturleg.<br>'+
+        '<b>Nedtrapp:</b> 200m → 150m → 100m i 88–93 %. Lang pause. Piggsko. Fokus: rytme og form.'}]}
+  };
+  return map[dow]||map[0];
+}
+
+function buildTrainHTML(ds){
+  const d=parseDS(ds);const dow=d.getDay();
+  const dd=getDayData(dow,ds);
+  const phase=getPhase(ds);const special=SP[ds];
+  let h='';
+  if(phase)h+=`<span class="phase-tag ${phase.t}">${phase.n}</span> `;
+  if(special)h+=`<div class="tb ${special.c}"><div class="tb-lbl">${special.l}</div>${special.t}</div>`;
+  dd.blocks.forEach(b=>{h+=`<div class="tb ${b.c}"><div class="tb-lbl">${b.l}</div>${b.t}</div>`;});
+  return h||'<div class="empty">Ingen treningsdata</div>';
+}
+
+// ================================================================
+// MEALS WITH MACROS
+// ================================================================
+// macros: {p, k, f, e} = protein g, karbo g, feitt g, kcal
+const MEALS={
+  1:{h:'kd-1',lbl:'Måndag — Core + overkropp',
+    macros:{p:178,k:245,f:38,e:2050},
+    items:[
+      {t:'07:00',n:'Havregraut + egg',d:'100g havre · 3 egg røregg · 100g blandabær · 1 ts honning',s:'Kalsium · Omega-3 · Folsyre · D-vitamin'},
+      {t:'10:00',n:'Skyr + grovbrød',d:'200g skyr naturell · 100g bær · 1 skive grovbrød'},
+      {t:'12:30',n:'Kylling + ris + brokkoli',d:'180g kyllingbryst · 180g kokt ris · rikelig brokkoli/grønt · sitron og krydder'},
+      {t:'15:30',n:'Banan + skyr',d:'1 stor banan · 150g skyr'},
+      {t:'17:00',n:'Middag (lett, 1,5t før trening)',d:'<b>A:</b> 160g kylling + 150g ris + tomatsaus + spinat<br><b>B:</b> 160g kjøttdeig + 150g pasta + tomatsaus<br><b>C:</b> 180g kyllingkjøttdeig + 200g søtpotet + grønt',s:'C-vitamin 30 min før trening (kl 18:00)'},
+      {t:'21:00',n:'Skyr + bær',d:'200g skyr · bær · seinast 1t før leggetid',s:'Magnesium + Jern + lita dose C-vitamin'},
+    ]},
+  2:{h:'kd-2',lbl:'Tysdag — Fartøkt (høgast karbo)',
+    macros:{p:202,k:295,f:35,e:2330},
+    items:[
+      {t:'07:00',n:'Havregraut + egg + bær — stor',d:'120g havre · 3 egg røregg · 100g bær · 1 ts honning',s:'Kalsium · Omega-3 · Folsyre · D-vitamin'},
+      {t:'10:00',n:'Grovbrød + kylling',d:'2 skiver grovbrød · 100g kylling · tomat/agurk'},
+      {t:'12:00',n:'Ris + kylling + grønt — stor',d:'200g kyllingbryst · 200g ris · brokkoli/paprika rikelig'},
+      {t:'15:00',n:'Skyr + banan',d:'200g skyr · 1 banan'},
+      {t:'17:00',n:'Middag (lett, 1,5t før trening)',d:'<b>A:</b> 150g kylling + 150g pasta + tomatsaus<br><b>B:</b> 150g biff + 180g potet + brokkoli<br><b>C:</b> 160g kyllingkjøttdeig + 150g ris + grønt',s:'C-vitamin 30 min før trening (kl 18:00)'},
+      {t:'~20:30',n:'Restitusjon etter trening',d:'200g skyr + 1 banan — innan 30 min'},
+      {t:'21:15',n:'Skyr + bær (liten)',d:'150g skyr · bær',s:'Magnesium + Jern + lita dose C-vitamin'},
+    ]},
+  3:{h:'kd-3',lbl:'Onsdag — Styrke',
+    macros:{p:171,k:260,f:36,e:2085},
+    items:[
+      {t:'07:30',n:'Havregraut + skyr',d:'100g havre · 150g skyr rørt inn · bær · honning',s:'Kalsium · Omega-3 · Folsyre · D-vitamin'},
+      {t:'10:00',n:'Kokte egg + frukt',d:'3 kokte egg · 1 banan eller eple'},
+      {t:'12:30',n:'Kylling + søtpotet + grønt',d:'180g kylling · 200g søtpotet · spinat/grønt'},
+      {t:'15:30',n:'Skyr + grovbrød',d:'200g skyr · 1 skive grovbrød'},
+      {t:'17:00',n:'Middag (lett, 1,5t før styrke)',d:'<b>A:</b> 160g kyllingkjøttdeig + 150g pasta + tomatsaus<br><b>B:</b> 160g kylling + 150g ris + brokkoli<br><b>C:</b> 160g kjøttdeig + 200g søtpotet + grønt',s:'C-vitamin 30 min før trening (kl 18:00)'},
+      {t:'20:30',n:'Skyr + bær',d:'200g skyr · bær',s:'Magnesium + Jern + lita dose C-vitamin'},
+    ]},
+  4:{h:'kd-4',lbl:'Torsdag — Blokkøkt (høg karbo)',
+    macros:{p:196,k:285,f:34,e:2270},
+    items:[
+      {t:'07:00',n:'Havregraut + egg + bær',d:'120g havre · 3 egg røregg · bær · honning',s:'Kalsium · Omega-3 · Folsyre · D-vitamin'},
+      {t:'10:00',n:'Skyr + grovbrød',d:'200g skyr · 1–2 skiver grovbrød · tomat'},
+      {t:'12:00',n:'Kylling + ris + grønt — stor',d:'200g kylling · 200g ris · brokkoli/paprika rikelig'},
+      {t:'15:00',n:'Banan + skyr',d:'1–2 banan · 150g skyr'},
+      {t:'17:00',n:'Middag (lett, 1,5t før trening)',d:'<b>A:</b> 150g biff + 180g potet + brokkoli<br><b>B:</b> 160g kylling + 150g pasta + tomatsaus<br><b>C:</b> 160g kjøttdeig + 150g ris + spinat',s:'C-vitamin 30 min før trening (kl 18:00)'},
+      {t:'~20:30',n:'Restitusjon etter trening',d:'200g skyr + 1 banan — innan 30 min'},
+      {t:'21:15',n:'Skyr + bær (liten)',d:'150g skyr · bær',s:'Magnesium + Jern + lita dose C-vitamin'},
+    ]},
+  5:{h:'kd-5',lbl:'Fredag — Mobilitet (lad til laurdag)',
+    macros:{p:183,k:265,f:36,e:2145},
+    items:[
+      {t:'07:30',n:'Egg + havregraut',d:'3–4 egg omelett med spinat · 80g havre · bær',s:'Kalsium · Omega-3 · Folsyre · D-vitamin'},
+      {t:'10:00',n:'Skyr + bær + banan',d:'200g skyr · 100g bær · 1 banan'},
+      {t:'12:30',n:'Kylling + ris + grønt',d:'180g kylling · 180g ris · grønt rikelig'},
+      {t:'15:30',n:'Grovbrød + egg',d:'2 skiver grovbrød · 2–3 kokte egg'},
+      {t:'18:30',n:'Middag — karbolading til laurdag',d:'<b>A:</b> 180g biff + 250g kokt potet + brokkoli<br><b>B:</b> 180g kylling + 200g pasta + tomatsaus<br><b>C:</b> 180g kjøttdeig + 200g ris + grønt'},
+      {t:'21:00',n:'Skyr naturell',d:'200g skyr',s:'Magnesium + Jern + lita dose C-vitamin'},
+    ]},
+  6:{h:'kd-6',lbl:'Laurdag — Rytmeøkt formiddag',
+    macros:{p:207,k:300,f:37,e:2380},
+    items:[
+      {t:'07:30',n:'Havregraut + egg + bær — stor',d:'120g havre · 3 egg røregg · 100g bær · honning',s:'Kalsium · Omega-3 · Folsyre · D-vitamin'},
+      {t:'09:30',n:'Banan + skyr (pre-trening)',d:'1–2 banan · 150g skyr — 90 min før',s:'C-vitamin 30 min før trening (kl 10:30)'},
+      {t:'~13:00',n:'Restitusjon etter trening',d:'200g skyr + 1 banan — innan 30 min'},
+      {t:'14:00',n:'Stor restitusjonslunsj',d:'200g kylling eller biff · 200g ris/pasta · brokkoli/grønt rikelig'},
+      {t:'16:30',n:'Skyr + frukt',d:'200g skyr · 1 banan eller eple'},
+      {t:'19:00',n:'Middag — storfe-prioritet',d:'<b>A:</b> 200g biff + 250g potet + grønt (jern og kreatin!)<br><b>B:</b> 200g kjøttdeig + 200g pasta + tomatsaus<br><b>C:</b> 200g kylling + 200g ris + grønt'},
+      {t:'21:00',n:'Skyr + bær',d:'200g skyr · bær',s:'Magnesium + Jern + lita dose C-vitamin'},
+    ]},
+  0:{h:'kd-0',lbl:'Søndag — Kvile',
+    macros:{p:175,k:235,f:33,e:1980},
+    items:[
+      {t:'08:30',n:'Egg + havregraut',d:'3 egg røregg · 80g havre · bær',s:'Kalsium · Omega-3 · Folsyre · D-vitamin'},
+      {t:'11:00',n:'Skyr + banan',d:'200g skyr · 1 banan'},
+      {t:'13:30',n:'Kylling + potet + grønt',d:'180g kylling · 180g kokt potet · brokkoli/spinat rikelig'},
+      {t:'16:00',n:'Grovbrød + egg',d:'1–2 skiver grovbrød · 2 kokte egg'},
+      {t:'18:30',n:'Middag',d:'<b>A:</b> 200g kyllingkjøttdeig + 150g ris + grønt<br><b>B:</b> 180g kjøttdeig + 150g pasta + tomatsaus<br><b>C:</b> 180g kylling + 200g søtpotet + spinat'},
+      {t:'20:30',n:'Skyr naturell',d:'200g skyr',s:'Magnesium + Jern + lita dose C-vitamin'},
+    ]},
+};
+
+function buildMacroBar(macros){
+  return `<div class="macro-bar">
+    <div class="macro-pill mp-p"><span class="macro-val">${macros.p}g</span><span class="macro-lbl">Protein</span></div>
+    <div class="macro-pill mp-k"><span class="macro-val">${macros.k}g</span><span class="macro-lbl">Karbo</span></div>
+    <div class="macro-pill mp-f"><span class="macro-val">${macros.f}g</span><span class="macro-lbl">Feitt</span></div>
+    <div class="macro-pill mp-e"><span class="macro-val">${macros.e}</span><span class="macro-lbl">kcal</span></div>
+  </div>`;
+}
+
+function buildMealHTML(dow, showMacro=true){
+  const m=MEALS[dow];
+  if(!m)return'<div class="empty">Ingen kostdata</div>';
+  const items=m.items.map((it,i)=>
+    `${i>0?'<div class="mdiv"></div>':''}
+    <div class="mb">
+      <span class="mb-t">${it.t}</span>
+      <span class="mb-n">${it.n}</span>
+      <div class="mb-d">${it.d}</div>
+      ${it.s?`<div class="mb-s">${it.s}</div>`:''}
+    </div>`
+  ).join('');
+  return items+(showMacro?buildMacroBar(m.macros):'');
+}
+
+// ================================================================
+// TODAY
+// ================================================================
+function renderToday(){
+  const now=new Date();const ds=toDS(now);const dow=now.getDay();
+  document.getElementById('navDate').textContent=fmtLong(now);
+  const dd=getDayData(dow,ds);
+  const head=document.getElementById('todayHead');
+  head.className='card-head '+(dd.type==='kvile'||dd.type==='mob'?'ch-r':'ch-t');
+  head.textContent='Dagens trening — '+dd.lbl;
+  document.getElementById('todayTrain').innerHTML=buildTrainHTML(ds);
+  document.getElementById('todayKost').innerHTML=buildMealHTML(dow,true);
+}
+
+// ================================================================
+// WEEK
+// ================================================================
+let curMon=getMonday(new Date());
+
+function renderWeek(){
+  const todayDS=toDS(new Date());
+  const sun=new Date(curMon.getFullYear(),curMon.getMonth(),curMon.getDate()+6);
+  document.getElementById('wkLbl').textContent=fmtShort(curMon)+' – '+fmtShort(sun)+' '+curMon.getFullYear();
+  let h='';
+  for(let i=0;i<7;i++){
+    const d=new Date(curMon.getFullYear(),curMon.getMonth(),curMon.getDate()+i);
+    const ds=toDS(d);const dow=d.getDay();
+    const dd=getDayData(dow,ds);
+    const phase=getPhase(ds);const special=SP[ds];
+    const isT=ds===todayDS;
+    const dot=special?'dot-c':dd.dot;
+    h+=`<div class="dc${isT?' hl':''}" onclick="openModal('${ds}')">
+      <div class="dc-h"><span>${DNS[dow].toUpperCase()}</span><span class="dc-date">${fmtShort(d)}</span></div>
+      <div class="dc-b">
+        ${phase?`<div style="font-size:10px;color:var(--text2);margin-bottom:3px">${phase.n}</div>`:''}
+        ${special?`<div style="font-size:11px;color:#DC2626;font-weight:700;margin-bottom:3px">${special.l}</div>`:''}
+        <span class="dot ${dot}"></span>${dd.short}
+      </div>
+    </div>`;
+  }
+  document.getElementById('wkGrid').innerHTML=h;
+}
+
+function prevWk(){curMon=new Date(curMon.getFullYear(),curMon.getMonth(),curMon.getDate()-7);renderWeek()}
+function nextWk(){curMon=new Date(curMon.getFullYear(),curMon.getMonth(),curMon.getDate()+7);renderWeek()}
+
+// ================================================================
+// KOST
+// ================================================================
+function renderKost(){
+  const order=[1,2,3,4,5,6,0];
+  document.getElementById('kostGrid').innerHTML=order.map(dow=>{
+    const m=MEALS[dow];if(!m)return'';
+    return`<div class="kost-card">
+      <div class="kost-h ${m.h}">${m.lbl}</div>
+      <div class="kost-b">${buildMealHTML(dow,true)}</div>
+    </div>`;
+  }).join('');
+}
+
+// ================================================================
+// MODAL
+// ================================================================
+function openModal(ds){
+  const d=parseDS(ds);
+  document.getElementById('modalTitle').textContent=fmtLong(d);
+  document.getElementById('modalBody').innerHTML=
+    '<div class="modal-sec">Trening</div>'+buildTrainHTML(ds)+
+    '<div class="modal-sec">Kostplan</div>'+buildMealHTML(d.getDay(),true);
+  document.getElementById('overlay').classList.add('open');
+}
+function closeModal(){document.getElementById('overlay').classList.remove('open')}
+function overlayClick(e){if(e.target.id==='overlay')closeModal()}
+
+// ================================================================
+// VIEWS
+// ================================================================
+function showView(v,btn){
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ================================================================
+// INIT
+// ================================================================
+renderToday();
+renderWeek();
+renderKost();
+</script>
+</body>
+</html>
